@@ -1,14 +1,8 @@
 stages:
-  - test
   - build
 
 variables:
   IMAGE_TAG: $CI_REGISTRY_IMAGE:$CI_COMMIT_SHORT_SHA
-
-test-task:
-  stage: test
-  script:
-    - echo "Hello!"
 
 build-task:
   stage: build
@@ -24,4 +18,6 @@ build-task:
     - docker build -t $IMAGE_TAG .
     - docker push $IMAGE_TAG
   rules:
-    - if: $CI_COMMIT_BRANCH == "main"
+    - if: >-
+        $CI_COMMIT_BRANCH == "main" 
+        && $CI_COMMIT_MESSAGE =~ /- release$/
