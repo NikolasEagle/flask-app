@@ -18,6 +18,4 @@ build-task:
     - docker build -t $IMAGE_TAG .
     - docker push $IMAGE_TAG
   rules:
-    - if: >-
-        $CI_COMMIT_BRANCH == "main" 
-        && $CI_COMMIT_MESSAGE =~ /- release$/
+    - if: '$CI_COMMIT_BRANCH == "main" && $CI_COMMIT_MESSAGE =~ /- release$/'
