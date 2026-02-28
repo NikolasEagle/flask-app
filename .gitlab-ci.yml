@@ -7,16 +7,6 @@ variables:
   DOCS_FILES: "README.md LICENSE"
   DEV_FILES: "requirements.txt"
 
-workflow:
-  rules:
-    - if: $CI_COMMIT_BRANCH == "main"
-      changes:
-        - $CONFIG_FILES
-        - $DOCS_FILES
-        - $DEV_FILES
-      when: never
-    - when: always
-
 build-task:
   stage: build
   image: docker:latest
@@ -30,3 +20,11 @@ build-task:
   script:
     - docker build -t $IMAGE_TAG .
     - docker push $IMAGE_TAG
+  rules:
+    - if: $CI_COMMIT_BRANCH == "main"
+      changes:
+        - $CONFIG_FILES
+        - $DOCS_FILES
+        - $DEV_FILES
+      when: never
+    - when: always
