@@ -20,16 +20,11 @@ build-task:
   rules:
     - if: $CI_COMMIT_BRANCH == "main"
       changes:
-        - "*.py"
-        - "Dockerfile"
-      when: always
-    - if: $CI_COMMIT_BRANCH == "main"
-      changes:
-        - ".gitignore"
         - ".gitlab-ci.yml"
         - ".github/workflows/main.yml"
         - "README.md"
         - "LICENSE"
         - "requirements.txt"
       when: never
-    - when: never
+    - if: $CI_COMMIT_BRANCH == "main"
+      when: always
