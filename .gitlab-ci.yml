@@ -3,9 +3,6 @@ stages:
 
 variables:
   IMAGE_TAG: $CI_REGISTRY_IMAGE:$CI_COMMIT_SHORT_SHA
-  CONFIG_FILES: ".gitlab-ci.yml .github/workflows/main.yml"
-  DOCS_FILES: "README.md LICENSE"
-  DEV_FILES: "requirements.txt"
 
 build-task:
   stage: build
@@ -23,8 +20,11 @@ build-task:
   rules:
     - if: $CI_COMMIT_BRANCH == "main"
       changes:
-        - $CONFIG_FILES
-        - $DOCS_FILES
-        - $DEV_FILES
+        - ".gitlab-ci.yml"
+        - ".github/workflows/main.yml"
+        - "README.md"
+        - "LICENSE"
+        - "requirements.txt"
       when: never
-    - when: always
+    - if: $CI_COMMIT_BRANCH == "main"
+      when: always
