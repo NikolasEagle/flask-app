@@ -49,8 +49,8 @@ update-helm-chart-task:
   variables:
     GIT_STRATEGY: none
   script:
-    - echo $HELM_DEPLOY_USER
-    - echo $HELM_DEPLOY_TOKEN
+    - echo ${HELM_DEPLOY_USER}
+    - echo ${HELM_DEPLOY_TOKEN}
     - git clone https://$CHART_REPO helm-charts
     - cd helm-charts/charts/flask-app
     - 'sed -i "s|tag:.*|tag\: \"$TAG_ONLY\"|" values.yaml'
