@@ -53,5 +53,6 @@ update-helm-chart-task:
     - awk '/^version:/ {split($2, v, "."); $2 = v[1] "." v[2] "." v[3]+1} 1' Chart.yaml > Chart.yaml.tmp && mv Chart.yaml.tmp Chart.yaml
     - git config user.email "ci@gitlab.com"
     - git config user.name "GitLab CI"
+    - git add .
     - git commit -m "Изменение версии образа на $IMAGE_TAG"
     - git push https://${HELM_DEPLOY_USER}:${HELM_DEPLOY_TOKEN}@CHART_REPO main
