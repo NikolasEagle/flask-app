@@ -6,6 +6,8 @@ variables:
   IMAGE_TAG: $CI_REGISTRY_IMAGE:$CI_COMMIT_SHORT_SHA
   TAG_ONLY: $CI_COMMIT_SHORT_SHA
   CHART_REPO: github.com/NikolasEagle/flask-app-helm.git
+  HELM_DEPLOY_USER: $HELM_DEPLOY_USER
+  HELM_DEPLOY_TOKEN: $HELM_DEPLOY_TOKEN
 
 workflow:
   rules:
