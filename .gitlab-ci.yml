@@ -48,8 +48,8 @@ update-helm-chart-task:
   script:
     - git clone $CHART_REPO helm-charts
     - cd helm-charts/charts/flask-app
-    - sed -i "s|tag:.*|tag: \"$IMAGE_TAG\"|" values.yaml
-    - sed -i "s|appVersion:.*|appVersion: \"$IMAGE_TAG\"|" Chart.yaml
+    - 'sed -i "s|tag:.*|tag\: \"$IMAGE_TAG\"|" values.yaml'
+    - 'sed -i "s|appVersion:.*|appVersion: \"$IMAGE_TAG\"|" Chart.yaml'
     - awk '/^version:/ {split($2, v, "."); $2 = v[1] "." v[2] "." v[3]+1} 1' Chart.yaml > Chart.yaml.tmp && mv Chart.yaml.tmp Chart.yaml
     - git config user.email "ci@gitlab.com"
     - git config user.name "GitLab CI"
