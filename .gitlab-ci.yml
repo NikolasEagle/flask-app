@@ -42,11 +42,9 @@ build-task:
 
 update-helm-chart-task:
   stage: update-helm-chart
-  image: alpine:latest
+  image: bitnami/git:latest
   variables:
     GIT_STRATEGY: none
-  before_script:
-    - apk add --no-cache git sed awk
   script:
     - git clone $CHART_REPO helm-charts
     - cd helm-charts/charts/flask-app
