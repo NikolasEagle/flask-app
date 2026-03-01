@@ -1,8 +1,10 @@
 stages:
   - build
+  - update-helm-chart
 
 variables:
   IMAGE_TAG: $CI_REGISTRY_IMAGE:$CI_COMMIT_SHORT_SHA
+  CHART_REPO: https://gitlab.com/EagleDevStack/flask-app-helm.git
 
 workflow:
   rules:
@@ -37,3 +39,19 @@ build-task:
   script:
     - docker build -t $IMAGE_TAG .
     - docker push $IMAGE_TAG
+
+update-helm-chart-task:
+  stage: update-helm-chart
+  image: alpine/git:latest
+  variables:
+    GIT_STRATEGY: none
+  script:
+    - git clone $CHART_REPO helm-charts
+    - cd helm-charts/charts/flask-app
+    - sed -i "s|tag:.*|tag: \"$IMAGE_TAG\"|" values.yaml
+    - sed -i "s|appVersion:.*|appVersion: \"$IMAGE_TAG\"|" Chart.yaml
+    - git config user.email "ci@gitlab.com
+    - git config user.name "GitLab CI"
+    - git add .
+    - git commit -m "Изменение версии образа на $IMAGE_TAG"
+    - git push origin main
