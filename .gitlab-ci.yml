@@ -55,4 +55,4 @@ update-helm-chart-task:
     - git config user.name "GitLab CI"
     - git add .
     - git commit -m "Изменение версии образа на $IMAGE_TAG"
-    - git push https://${HELM_DEPLOY_USER}:${HELM_DEPLOY_TOKEN}@CHART_REPO main
+    - git push https://${HELM_DEPLOY_USER}:${HELM_DEPLOY_TOKEN}@$CHART_REPO main
